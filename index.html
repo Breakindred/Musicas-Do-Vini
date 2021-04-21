@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musicas do Vinicius</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+</head>
+<body>
+  <h1>Musicas do Vinicius</h1>  
+
+<audio id="audio" preload="metadata" tabindex="0" controls="">
+    <source src="midia/funk/coracao-gelado-2.mp3">
+</audio>
+
+    <ul id="playlist">
+        <li class="active"><a href="midia/funk/coracao-gelado-2.mp3">Coração Gelado 2</a></li>
+        <li><a href="midia/funk/de-lado-de-quatro.mp3">De lado de quatro</a></li>
+        <li><a href="midia/funk/de-mochila-e-de-radin.mp3">De mochila e de radin</a></li>
+        <li><a href="midia/funk/dico-arranhado.mp3">Disco arranhado</a></li>
+        <li><a href="midia/funk/espirra-o-lanca.mp3">Espirra o lança</a></li>
+        <li><a href="midia/funk/eu-catuquei.mp3">Eu catuquei</a></li>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+        
+    </ul>
+
+    <script type="text/javascript">
+   
+   inicio();
+   
+   function inicio() {
+    
+    var corrente = 0;
+    var audio = $("#audio");
+    var playlist = $("#playlist");
+    var tracks = playlist.find ("li a");
+    var len = tracks.length - 1;
+    audio [0].play();
+    playlist.find("a").click(function(e){
+        e.preventDefault();
+        link = $(this);
+        corrente = link.parent().index();
+        run(link, audio[0]);
+    });
+    audio[0].addEventListener("ended", function(){
+        corrente++;
+        if(corrente = len) {
+            corrente = 0;
+            link = playlist.find("a") [0];
+        } else {
+            link = playlist.find ("a") [corrente]
+        }
+        run($(link), audio[0])
+    });
+
+   }
+   
+   function run(link, player) {
+        player.src = link.attr("href");
+        par = link.parent()
+        par.addClass("active").siblings().removeClass("active");
+        player.load();
+        player.play();
+    }
+        
+
+    </script>
+</audio>
+</body>
+</html>
